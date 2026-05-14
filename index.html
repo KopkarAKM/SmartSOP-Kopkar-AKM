@@ -2,218 +2,447 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portal SOM & SOP Adaro Karya Mandiri</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Mencegah klik pada watermark agar PDF tetap bisa di-scroll */
-        .watermark-overlay {
-            pointer-events: none;
-        }
-        /* Transisi halus untuk sidebar HP */
-        #sidebar {
-            transition: transform 0.3s ease-in-out;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .watermark-overlay { pointer-events: none; }
+        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800 flex h-screen overflow-hidden">
+<body class="bg-gray-50 text-gray-800 flex h-screen overflow-hidden">
 
     <!-- Overlay Latar Belakang (Mobile) -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-gray-900/60 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar Navigasi -->
-    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-gray-200 flex flex-col shadow-sm transform -translate-x-full md:translate-x-0">
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-gray-200 flex flex-col shadow-xl md:shadow-none transform -translate-x-full md:translate-x-0 h-full">
         
         <!-- Header Sidebar -->
-        <div class="p-6 border-b border-gray-100 flex items-center gap-4">
+        <div class="p-5 border-b border-gray-100 flex items-center gap-4 bg-white shrink-0">
             <div class="w-10 h-10 bg-blue-900 rounded-lg flex items-center justify-center shrink-0 shadow-sm">
                 <span class="text-xl font-bold text-white">A</span>
             </div>
             <div class="flex-1 overflow-hidden">
-                <h1 class="text-base font-bold text-blue-900 truncate">Adaro Karya Mandiri</h1>
-                <p class="text-xs text-gray-500 font-medium">Portal SOM & SOP</p>
+                <h1 class="text-sm font-bold text-blue-900 truncate leading-tight">Adaro Karya Mandiri</h1>
+                <p class="text-[11px] text-gray-500 font-medium mt-0.5">Portal SOM & SOP</p>
             </div>
-            <button class="md:hidden text-gray-400 hover:text-gray-600" onclick="toggleSidebar()">
-                <i class="fa-solid fa-xmark text-xl"></i>
+            <button class="md:hidden text-gray-400 hover:text-gray-700 transition-colors p-1" onclick="toggleSidebar()">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
         <!-- Kolom Pencarian -->
-        <div class="px-6 py-4">
+        <div class="px-5 py-4 bg-white z-10 shrink-0 border-b border-gray-50">
             <div class="relative flex items-center">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 text-gray-400 text-sm"></i>
-                <input type="text" id="searchInput" placeholder="Cari dokumen..." onkeyup="searchMenu()" class="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 text-gray-400 text-xs"></i>
+                <input type="text" id="searchInput" placeholder="Cari dokumen..." onkeyup="searchMenu()" class="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all shadow-sm">
             </div>
         </div>
 
         <!-- Daftar Menu Dinamis -->
-        <div id="menu-container" class="flex-1 overflow-y-auto py-2 px-3">
+        <div id="menu-container" class="flex-1 overflow-y-auto py-2 px-3 pb-6">
             <!-- Menu akan di-render oleh JavaScript -->
         </div>
-
     </aside>
 
     <!-- Area Konten Utama -->
-    <main class="flex-1 flex flex-col h-full relative overflow-hidden">
+    <main class="flex-1 flex flex-col h-full relative min-w-0 overflow-hidden">
         
         <!-- Header Top (Mobile) -->
-        <header class="md:hidden bg-white border-b border-gray-200 px-4 h-16 flex items-center justify-between shrink-0 z-30">
-            <button class="p-2 text-gray-500" onclick="toggleSidebar()">
-                <i class="fa-solid fa-bars text-xl"></i>
+        <header class="md:hidden bg-white border-b border-gray-200 px-4 h-14 flex items-center justify-between shrink-0 z-30 shadow-sm">
+            <button class="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars text-lg"></i>
             </button>
-            <h1 class="text-sm font-bold text-blue-900 truncate">Portal Koperasi</h1>
-            <button class="p-2 text-gray-500">
-                <i class="fa-solid fa-circle-user text-xl"></i>
+            <h1 class="text-sm font-bold text-blue-900 truncate mx-2">Portal Dokumen</h1>
+            <button class="p-2 -mr-2 text-gray-400">
+                <i class="fa-solid fa-circle-user text-lg"></i>
             </button>
         </header>
 
         <!-- Area Penampil Dokumen -->
-        <div class="flex-1 flex flex-col relative bg-gray-200">
+        <div class="flex-1 flex flex-col relative bg-gray-100/50 overflow-hidden">
             
             <!-- Toolbar Judul Dokumen Aktif -->
-            <div class="bg-white border-b border-gray-200 px-4 md:px-6 py-3 flex items-center justify-between shrink-0 shadow-sm z-20">
-                <div class="flex items-center text-sm font-medium text-gray-800 w-full">
-                    <i class="fa-regular fa-file-pdf text-red-500 mr-3"></i>
-                    <span id="active-title" class="truncate">Silakan Pilih Dokumen di Menu Samping</span>
+            <div id="document-header" class="hidden bg-white border-b border-gray-200 px-4 md:px-6 py-3 flex-col md:flex-row md:items-center justify-between shrink-0 shadow-sm z-20 gap-3 md:gap-0">
+                <div class="flex items-center text-sm font-medium text-gray-800 w-full md:w-auto overflow-hidden">
+                    <i id="header-icon" class="fa-regular fa-file-pdf text-red-500 mr-3 shrink-0 text-lg"></i>
+                    <span id="active-title" class="truncate font-semibold text-gray-700">Pilih Dokumen</span>
                 </div>
+                
+                <!-- Tombol Buka Layar Penuh -->
+                <a id="mobile-pdf-link" href="#" target="_blank" class="md:hidden flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-xs font-bold shadow-sm transition-colors w-full">
+                    <span>Baca Layar Penuh</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
             </div>
 
-            <!-- Area Iframe PDF & Watermark -->
-            <div class="flex-1 relative w-full h-full p-2 md:p-6 flex justify-center">
+            <!-- Area Tampilan Konten (Dikunci dengan flex-1 dan overflow-hidden agar scroll berfungsi) -->
+            <div class="flex-1 relative w-full p-0 md:p-6 overflow-hidden flex justify-center">
                 
-                <!-- Container Pembungkus PDF agar rapi -->
-                <div class="relative w-full max-w-5xl h-full bg-white shadow-lg border border-gray-300 rounded-md overflow-hidden">
-                    
-                    <!-- Watermark Lapisan Depan -->
+                <!-- 1. Container Pembungkus PDF -->
+                <div id="pdf-container" class="relative w-full h-full max-w-5xl bg-white md:shadow-lg md:border border-gray-300 md:rounded-lg overflow-hidden hidden">
                     <div class="watermark-overlay absolute inset-0 flex items-center justify-center z-10 overflow-hidden select-none">
-                        <span class="text-gray-900 opacity-[0.04] text-4xl md:text-7xl font-bold uppercase tracking-widest -rotate-45 whitespace-nowrap">
+                        <span class="text-gray-900 opacity-[0.03] text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-widest -rotate-45 whitespace-nowrap">
                             Kopkar AKM Internal Only
                         </span>
                     </div>
-
-                    <!-- Elemen Iframe Pemanggil PDF Asli -->
-                    <iframe id="pdf-viewer" class="w-full h-full relative z-0" src="" frameborder="0"></iframe>
-                    
-                    <!-- Pesan Kosong Awal -->
-                    <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-0">
-                        <i class="fa-solid fa-book-open text-6xl text-gray-300 mb-4"></i>
-                        <h2 class="text-xl font-bold text-gray-400">Portal Dokumen Siap Digunakan</h2>
-                        <p class="text-gray-500 mt-2 text-sm text-center max-w-md">Klik salah satu judul dokumen SOP pada navigasi di sebelah kiri untuk membaca file PDF.</p>
-                    </div>
-
+                    <iframe id="pdf-viewer" class="w-full h-full relative z-0" src="" frameborder="0" style="-webkit-overflow-scrolling: touch;"></iframe>
                 </div>
+
+                <!-- 2. Container Pembungkus HTML (Untuk Ringkasan/Flowchart) -->
+                <!-- Penambahan w-full, h-full, dan overflow-y-auto memicu scroll pada elemen ini -->
+                <div id="html-container" class="relative w-full h-full max-w-5xl bg-white md:shadow-lg md:border border-gray-300 md:rounded-lg overflow-y-auto p-6 md:p-10 hidden" style="-webkit-overflow-scrolling: touch;">
+                    
+                    <div class="max-w-4xl mx-auto pb-10">
+                        <div class="text-center mb-10">
+                            <h2 class="text-2xl md:text-3xl font-bold text-blue-900 uppercase tracking-tight">Peta Operasional & Flowchart</h2>
+                            <div class="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+                            <p class="mt-4 text-gray-600 text-sm md:text-base leading-relaxed">Visualisasi alur kerja terintegrasi Koperasi Karyawan Adaro Karya Mandiri. Sistem ini memandu setiap proses dari administrasi karyawan, siklus pinjaman, hingga pencatatan keuangan secara aman dan terukur.</p>
+                        </div>
+
+                        <!-- FLOWCHART SOP USAHA -->
+                        <div class="mb-12">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-orange-200 pb-2 flex items-center"><i class="fa-solid fa-briefcase text-orange-500 mr-3"></i> Alur SOP Usaha (Siklus Pinjaman & Simpanan)</h3>
+                            
+                            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                                
+                                <!-- Simpanan -->
+                                <div class="bg-white border-l-4 border-teal-500 p-4 rounded shadow-sm mb-6 relative">
+                                    <span class="absolute top-2 right-2 text-[10px] bg-teal-100 text-teal-800 px-2 py-1 rounded font-bold">ALUR INDEPENDEN</span>
+                                    <h4 class="font-bold text-gray-800 text-sm mb-1">Fase Simpanan</h4>
+                                    <p class="text-xs text-gray-600">Anggota menabung pasif/sukarela, dana dipotong tiap tgl 25. Modal ini menjadi faktor penentu kelayakan peminjaman.</p>
+                                    <div class="mt-2"><span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/04</span></div>
+                                </div>
+
+                                <!-- Siklus Pinjaman -->
+                                <h4 class="font-bold text-gray-800 text-sm mb-3">Fase Pengajuan, Analisis, dan Pencairan</h4>
+                                <div class="space-y-3 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
+                                    
+                                    <!-- Step 1 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-file-signature text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                            <p class="text-sm font-bold text-gray-800">1. Pengajuan (Titik Masuk)</p>
+                                            <p class="text-xs text-gray-600 mt-1">Anggota memilih produk pinjaman dan melengkapi formulir.</p>
+                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/02</span></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 2 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-orange-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-magnifying-glass-chart text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-orange-200">
+                                            <p class="text-sm font-bold text-gray-800">2. Proses Analisis Terintegrasi</p>
+                                            <p class="text-xs text-gray-600 mt-1">Kepala Unit menilai 5C (watak, modal, bayar), sisa gaji, dan nilai pasar agunan (wajib min. 120%).</p>
+                                            <div class="mt-2 flex flex-wrap gap-1">
+                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 01</span>
+                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 07</span>
+                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 08</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 3 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-hand-holding-dollar text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                            <p class="text-sm font-bold text-gray-800">3. Persetujuan & Pencairan</p>
+                                            <p class="text-xs text-gray-600 mt-1">Manajer/Pengurus menyetujui, dana dicairkan staf keuangan ke anggota.</p>
+                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>Kembali ke SOP/USH/02</span></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 4 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-eye text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                            <p class="text-sm font-bold text-gray-800">4. Pemantauan Berjalan</p>
+                                            <p class="text-xs text-gray-600 mt-1">Tim rutin cek laporan potong gaji. Jika ada indikasi kurang lancar, tim langsung membina.</p>
+                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/06</span></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Step 5 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-red-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-triangle-exclamation text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-red-200">
+                                            <p class="text-sm font-bold text-red-700">5. Eskalasi Masalah (Jika Gagal Bayar)</p>
+                                            <p class="text-xs text-gray-600 mt-1">Atasan di perusahaan dipanggil, anggota wajib re-schedule. Jika macet mutlak (meninggal/cacat), sisa pinjaman dihapus dengan asuransi/cadangan.</p>
+                                            <div class="mt-2 flex flex-wrap gap-1">
+                                                <span class="text-[10px] bg-red-100 text-red-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 05 (Bermasalah)</span>
+                                                <span class="text-[10px] bg-red-100 text-red-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 03 (Hapus Macet)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FLOWCHART SOP KEUANGAN -->
+                        <div class="mb-12">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-green-200 pb-2 flex items-center"><i class="fa-solid fa-money-bill-wave text-green-600 mr-3"></i> Alur SOP Keuangan</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <!-- Tahap 1 -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm relative">
+                                    <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mb-3">1</div>
+                                    <h4 class="font-bold text-sm text-gray-800">Input Transaksi</h4>
+                                    <p class="text-[11px] text-gray-600 mt-1 mb-3">Pencatatan sumber data, pemisahan arus dana tunai, non-tunai, dan kapitalisasi biaya investasi.</p>
+                                    <div class="flex flex-col gap-1">
+                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/08 (Tunai)</span>
+                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/01 (Non-Tunai)</span>
+                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/06 (Kapitalisasi)</span>
+                                    </div>
+                                </div>
+                                <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fa-solid fa-arrow-right text-xl"></i></div>
+                                <div class="md:hidden flex justify-center text-gray-300 my-1"><i class="fa-solid fa-arrow-down"></i></div>
+
+                                <!-- Tahap 2 -->
+                                <div class="bg-white border border-green-300 rounded-lg p-4 shadow-md relative ring-1 ring-green-100">
+                                    <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold mb-3">2</div>
+                                    <h4 class="font-bold text-sm text-gray-800">Pencatatan Pusat</h4>
+                                    <p class="text-[11px] text-gray-600 mt-1 mb-3">Jantung pemrosesan. Menyusun jurnal hingga terbentuknya Laporan Keuangan Bulanan.</p>
+                                    <span class="text-[10px] bg-green-100 text-green-800 px-2 py-1 rounded font-bold inline-block">SOP/KEU/04 (Sistem Akuntansi)</span>
+                                </div>
+                                <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fa-solid fa-arrow-right text-xl"></i></div>
+                                <div class="md:hidden flex justify-center text-gray-300 my-1"><i class="fa-solid fa-arrow-down"></i></div>
+
+                                <!-- Tahap 3 & 4 (Combined for layout) -->
+                                <div class="flex flex-col gap-4 col-span-1 md:col-span-1">
+                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                                        <div class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xs mb-2">3</div>
+                                        <h4 class="font-bold text-xs text-gray-800">Evaluasi Hasil</h4>
+                                        <p class="text-[10px] text-gray-600 my-1">Surplus dibagikan, defisit diusut tuntas.</p>
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            <span class="text-[9px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-100">SOP 03 (SHU)</span>
+                                            <span class="text-[9px] bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-100">SOP 02 (Rugi)</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                                        <div class="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center font-bold text-xs mb-2">4</div>
+                                        <h4 class="font-bold text-xs text-gray-800">Pemantauan Metrik</h4>
+                                        <p class="text-[10px] text-gray-600 my-1">Kontrol likuiditas dan rasio modal batas aman.</p>
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            <span class="text-[9px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100">SOP 07 (Likuiditas)</span>
+                                            <span class="text-[9px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100">SOP 05 (CAR)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FLOWCHART SOP KELEMBAGAAN -->
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2 flex items-center"><i class="fa-solid fa-users text-blue-600 mr-3"></i> Alur SOP Kelembagaan (Siklus Hidup SDM)</h3>
+                            
+                            <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                                <!-- Garis Latar -->
+                                <div class="absolute left-6 md:left-[50%] top-0 bottom-0 w-1 bg-blue-50 md:-translate-x-1/2 z-0"></div>
+                                
+                                <div class="space-y-6 relative z-10">
+                                    <!-- 1. Masuk -->
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                        <div class="md:w-1/2 md:text-right md:pr-8 pl-12 md:pl-0 order-2 md:order-1 w-full">
+                                            <h4 class="font-bold text-sm text-gray-800">1. Fase Inisiasi & Masuk</h4>
+                                            <p class="text-xs text-gray-600 mt-1">Permintaan SDM, proses orientasi awal, hingga penentuan kelulusan masa probation menjadi karyawan tetap.</p>
+                                            <div class="flex flex-wrap md:justify-end gap-1 mt-2">
+                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 01 (Rekrutmen)</span>
+                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 03 (Orientasi)</span>
+                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 09 (Probation)</span>
+                                            </div>
+                                        </div>
+                                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">1</div>
+                                        <div class="md:w-1/2 order-3 hidden md:block"></div>
+                                    </div>
+
+                                    <!-- 2. Operasional -->
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                        <div class="md:w-1/2 hidden md:block order-1"></div>
+                                        <div class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">2</div>
+                                        <div class="md:w-1/2 pl-12 md:pl-8 order-2 md:order-3 w-full">
+                                            <h4 class="font-bold text-sm text-gray-800">2. Fase Administrasi Kerja Harian</h4>
+                                            <p class="text-xs text-gray-600 mt-1">Pengaturan operasional lapangan seperti perizinan, lembur, dan pencairan anggaran dinas ke luar.</p>
+                                            <div class="flex flex-wrap gap-1 mt-2">
+                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 04,05,06 (Izin/Cuti)</span>
+                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 07 (Lembur)</span>
+                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 11 & 12 (Dinas)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Pengembangan -->
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                        <div class="md:w-1/2 md:text-right md:pr-8 pl-12 md:pl-0 order-2 md:order-1 w-full">
+                                            <h4 class="font-bold text-sm text-gray-800">3. Fase Evaluasi & Karier</h4>
+                                            <p class="text-xs text-gray-600 mt-1">Peningkatan skill dan penilaian rutin tahunan yang berujung pada promosi, demosi, atau kenaikan gaji (Kompensasi).</p>
+                                            <div class="flex flex-wrap md:justify-end gap-1 mt-2">
+                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 02 & 20 (Training)</span>
+                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 10 (Evaluasi)</span>
+                                                <span class="text-[10px] bg-green-100 text-green-800 px-2 py-1 rounded">SOP 08 & 21 (Karier/Gaji)</span>
+                                            </div>
+                                        </div>
+                                        <div class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">3</div>
+                                        <div class="md:w-1/2 order-3 hidden md:block"></div>
+                                    </div>
+
+                                    <!-- 4 & 5. Kedisiplinan & Keluar -->
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                        <div class="md:w-1/2 hidden md:block order-1"></div>
+                                        <div class="w-10 h-10 bg-slate-700 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2"><i class="fa-solid fa-door-open"></i></div>
+                                        <div class="md:w-1/2 pl-12 md:pl-8 order-2 md:order-3 w-full">
+                                            <h4 class="font-bold text-sm text-gray-800">4. Fase Kedisiplinan & 5. Offboarding</h4>
+                                            <p class="text-xs text-gray-600 mt-1">Penanganan SP, sanksi, hingga pemutusan kerja (resign, PHK, sakit, pensiun, meninggal) dengan pencairan pesangon.</p>
+                                            <div class="flex flex-wrap gap-1 mt-2">
+                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded">SOP 19 (SP) -> SOP 15 (PHK)</span>
+                                                <span class="text-[10px] bg-slate-100 border border-slate-300 text-slate-700 px-2 py-1 rounded">SOP 14, 16, 17, 18, 13 (Keluar/Pensiun)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 3. Pesan Kosong Awal (Sebelum Pilih Dokumen) -->
+                <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-20 px-6">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fa-solid fa-book-open text-3xl text-blue-600"></i>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-800 text-center">Portal SOP Siap Digunakan</h2>
+                    <p class="text-gray-500 mt-3 text-sm md:text-base text-center max-w-md leading-relaxed">Ketuk ikon menu di pojok kiri atas (atau pilih di navigasi samping) untuk mulai membaca dokumen atau melihat peta operasional.</p>
+                    
+                    <button class="mt-8 md:hidden bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md" onclick="toggleSidebar()">
+                        Buka Daftar Menu
+                    </button>
+                </div>
+
             </div>
         </div>
     </main>
 
     <!-- Script Logika Aplikasi -->
     <script>
-        // Data Struktur Folder dan File PDF
-        // Pastikan nama file (properti 'file') persis sama dengan yang ada di folder 'pdfs' Anda.
+        // Data Struktur Folder dan File
         const documentData = [
+            {
+                category: "Ringkasan Eksekutif",
+                icon: "fa-solid fa-chart-pie",
+                items: [
+                    { title: "Peta Operasional & Flowchart", type: "html" }
+                ]
+            },
             {
                 category: "SOM Koperasi",
                 icon: "fa-solid fa-folder-open",
                 items: [
-                    { title: "Standar Operasional Manajemen", file: "SOM_AKM.pdf" }
+                    { title: "Standar Operasional Manajemen", file: "SOM_AKM.pdf", type: "pdf" }
                 ]
             },
             {
                 category: "SOP Kelembagaan",
                 icon: "fa-solid fa-building",
                 items: [
-                    { title: "01. Permintaan Karyawan Baru", file: "sop_adm_01.pdf" },
-                    { title: "02. Pelatihan Karyawan", file: "sop_adm_02.pdf" },
-                    { title: "03. Program Orientasi Karyawan", file: "sop_adm_03.pdf" },
-                    { title: "04. Cuti Karyawan", file: "sop_adm_04.pdf" },
-                    { title: "05. Izin Potong Cuti", file: "sop_adm_05.pdf" },
-                    { title: "06. Izin Sakit", file: "sop_adm_06.pdf" },
-                    { title: "07. Lembur Karyawan", file: "sop_adm_07.pdf" },
-                    { title: "08. Mutasi Promosi Demosi", file: "sop_adm_08.pdf" },
-                    { title: "09. Penilaian Masa Percobaan", file: "sop_adm_09.pdf" },
-                    { title: "10. Penilaian Tahunan", file: "sop_adm_10.pdf" },
-                    { title: "11. Perjalanan Dinas", file: "sop_adm_11.pdf" },
-                    { title: "12. Pertanggungjawaban Dinas", file: "sop_adm_12.pdf" },
-                    { title: "13. Karyawan Meninggal Dunia", file: "sop_adm_13.pdf" },
-                    { title: "14. Pengunduran Diri", file: "sop_adm_14.pdf" },
-                    { title: "15. PHK Karyawan", file: "sop_adm_15.pdf" },
-                    { title: "16. PHK Massal", file: "sop_adm_16.pdf" },
-                    { title: "17. Resign Karena Sakit", file: "sop_adm_17.pdf" },
-                    { title: "18. Karyawan Pensiun", file: "sop_adm_18.pdf" },
-                    { title: "19. Surat Peringatan", file: "sop_adm_19.pdf" },
-                    { title: "20. Pengajuan Biaya Training", file: "sop_adm_20.pdf" },
-                    { title: "21. Usulan Kenaikan Gaji", file: "sop_adm_21.pdf" }
+                    { title: "01. Permintaan Karyawan Baru", file: "sop_adm_01.pdf", type: "pdf" },
+                    { title: "02. Pelatihan Karyawan", file: "sop_adm_02.pdf", type: "pdf" },
+                    { title: "03. Program Orientasi Karyawan", file: "sop_adm_03.pdf", type: "pdf" },
+                    { title: "04. Cuti Karyawan", file: "sop_adm_04.pdf", type: "pdf" },
+                    { title: "05. Izin Potong Cuti", file: "sop_adm_05.pdf", type: "pdf" },
+                    { title: "06. Izin Sakit", file: "sop_adm_06.pdf", type: "pdf" },
+                    { title: "07. Lembur Karyawan", file: "sop_adm_07.pdf", type: "pdf" },
+                    { title: "08. Mutasi Promosi Demosi", file: "sop_adm_08.pdf", type: "pdf" },
+                    { title: "09. Penilaian Masa Percobaan", file: "sop_adm_09.pdf", type: "pdf" },
+                    { title: "10. Penilaian Tahunan", file: "sop_adm_10.pdf", type: "pdf" },
+                    { title: "11. Perjalanan Dinas", file: "sop_adm_11.pdf", type: "pdf" },
+                    { title: "12. Pertanggungjawaban Dinas", file: "sop_adm_12.pdf", type: "pdf" },
+                    { title: "13. Karyawan Meninggal Dunia", file: "sop_adm_13.pdf", type: "pdf" },
+                    { title: "14. Pengunduran Diri", file: "sop_adm_14.pdf", type: "pdf" },
+                    { title: "15. PHK Karyawan", file: "sop_adm_15.pdf", type: "pdf" },
+                    { title: "16. PHK Massal", file: "sop_adm_16.pdf", type: "pdf" },
+                    { title: "17. Resign Karena Sakit", file: "sop_adm_17.pdf", type: "pdf" },
+                    { title: "18. Karyawan Pensiun", file: "sop_adm_18.pdf", type: "pdf" },
+                    { title: "19. Surat Peringatan", file: "sop_adm_19.pdf", type: "pdf" },
+                    { title: "20. Pengajuan Biaya Training", file: "sop_adm_20.pdf", type: "pdf" },
+                    { title: "21. Usulan Kenaikan Gaji", file: "sop_adm_21.pdf", type: "pdf" }
                 ]
             },
             {
                 category: "SOP Keuangan",
                 icon: "fa-solid fa-money-bill-wave",
                 items: [
-                    { title: "01. Transaksi Non Tunai", file: "sop_keu_01.pdf" },
-                    { title: "02. Kriteria & Beban Kerugian", file: "sop_keu_02.pdf" },
-                    { title: "03. Akuntansi SHU", file: "sop_keu_03.pdf" },
-                    { title: "04. Sistem Akuntansi", file: "sop_keu_04.pdf" },
-                    { title: "05. Rasio Kecukupan Modal", file: "sop_keu_05.pdf" },
-                    { title: "06. Kapitalisasi Pengeluaran", file: "sop_keu_06.pdf" },
-                    { title: "07. Likuiditas Koperasi", file: "sop_keu_07.pdf" },
-                    { title: "08. Pengelolaan Dana Tunai", file: "sop_keu_08.pdf" }
+                    { title: "01. Transaksi Non Tunai", file: "sop_keu_01.pdf", type: "pdf" },
+                    { title: "02. Kriteria & Beban Kerugian", file: "sop_keu_02.pdf", type: "pdf" },
+                    { title: "03. Akuntansi SHU", file: "sop_keu_03.pdf", type: "pdf" },
+                    { title: "04. Sistem Akuntansi", file: "sop_keu_04.pdf", type: "pdf" },
+                    { title: "05. Rasio Kecukupan Modal", file: "sop_keu_05.pdf", type: "pdf" },
+                    { title: "06. Kapitalisasi Pengeluaran", file: "sop_keu_06.pdf", type: "pdf" },
+                    { title: "07. Likuiditas Koperasi", file: "sop_keu_07.pdf", type: "pdf" },
+                    { title: "08. Pengelolaan Dana Tunai", file: "sop_keu_08.pdf", type: "pdf" }
                 ]
             },
             {
                 category: "SOP Usaha",
                 icon: "fa-solid fa-briefcase",
                 items: [
-                    { title: "01. Prinsip Kehati-Hatian", file: "sop_ush_01.pdf" },
-                    { title: "02. Produk Pinjaman", file: "sop_ush_02.pdf" },
-                    { title: "03. Penghapusan Kredit Macet", file: "sop_ush_03.pdf" },
-                    { title: "04. Simpanan Konvensional", file: "sop_ush_04.pdf" },
-                    { title: "05. Penanganan Kredit Bermasalah", file: "sop_ush_05.pdf" },
-                    { title: "06. Pemantauan & Pembinaan", file: "sop_ush_06.pdf" },
-                    { title: "07. Kolektabilitas Pinjaman", file: "sop_ush_07.pdf" },
-                    { title: "08. Agunan Pinjaman", file: "sop_ush_08.pdf" }
+                    { title: "01. Prinsip Kehati-Hatian", file: "sop_ush_01.pdf", type: "pdf" },
+                    { title: "02. Produk Pinjaman", file: "sop_ush_02.pdf", type: "pdf" },
+                    { title: "03. Penghapusan Kredit Macet", file: "sop_ush_03.pdf", type: "pdf" },
+                    { title: "04. Simpanan Konvensional", file: "sop_ush_04.pdf", type: "pdf" },
+                    { title: "05. Penanganan Kredit Bermasalah", file: "sop_ush_05.pdf", type: "pdf" },
+                    { title: "06. Pemantauan & Pembinaan", file: "sop_ush_06.pdf", type: "pdf" },
+                    { title: "07. Kolektabilitas Pinjaman", file: "sop_ush_07.pdf", type: "pdf" },
+                    { title: "08. Agunan Pinjaman", file: "sop_ush_08.pdf", type: "pdf" }
                 ]
             }
         ];
 
-        // Elemen HTML yang akan dimanipulasi
+        // Elemen HTML 
         const menuContainer = document.getElementById('menu-container');
         const pdfViewer = document.getElementById('pdf-viewer');
+        const pdfContainer = document.getElementById('pdf-container');
+        const htmlContainer = document.getElementById('html-container');
         const activeTitle = document.getElementById('active-title');
+        const headerIcon = document.getElementById('header-icon');
         const emptyState = document.getElementById('empty-state');
+        const documentHeader = document.getElementById('document-header');
         const sidebar = document.getElementById('sidebar');
         const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobilePdfLink = document.getElementById('mobile-pdf-link');
         
         let currentlyActiveButton = null;
 
-        // Fungsi Membangun Menu Navigasi
+        // Render Menu
         function renderMenu() {
             menuContainer.innerHTML = '';
             
             documentData.forEach(category => {
-                // Wrapper Kategori
                 const groupDiv = document.createElement('div');
-                groupDiv.className = 'mb-4 menu-group';
+                groupDiv.className = 'mb-5 menu-group';
                 
-                // Judul Kategori
                 const titleDiv = document.createElement('div');
-                titleDiv.className = 'px-3 py-2 flex items-center text-xs font-bold text-gray-500 uppercase tracking-wider';
-                titleDiv.innerHTML = `<i class="${category.icon} w-5 text-gray-400"></i> ${category.category}`;
+                titleDiv.className = 'px-3 py-1.5 flex items-center text-[11px] font-bold text-gray-400 uppercase tracking-wider';
+                titleDiv.innerHTML = `<i class="${category.icon} w-5 text-gray-300"></i> ${category.category}`;
                 groupDiv.appendChild(titleDiv);
                 
-                // Daftar Item (Dokumen)
                 const itemsDiv = document.createElement('div');
-                itemsDiv.className = 'flex flex-col gap-1 mt-1';
+                itemsDiv.className = 'flex flex-col mt-1';
                 
                 category.items.forEach(item => {
                     const btn = document.createElement('button');
-                    btn.className = 'menu-item w-full text-left px-4 py-2 text-sm rounded-md transition-all flex items-center justify-between text-gray-600 hover:bg-gray-50 hover:text-gray-900';
-                    btn.innerHTML = `<span class="truncate pr-2">${item.title}</span> <i class="fa-solid fa-chevron-right text-transparent text-xs transition-colors indicator"></i>`;
+                    btn.className = 'menu-item w-full text-left px-3 py-2 text-[13px] rounded-md transition-all flex items-center justify-between text-gray-600 hover:bg-blue-50 hover:text-blue-800 mb-0.5 border border-transparent';
+                    btn.innerHTML = `<span class="truncate pr-2">${item.title}</span> <i class="fa-solid fa-chevron-right text-transparent text-[10px] transition-colors indicator"></i>`;
                     
-                    // Event Klik Buka PDF
-                    btn.onclick = () => loadPDF(item.title, item.file, btn);
-                    
-                    // Simpan data text untuk fitur pencarian
+                    btn.onclick = () => loadDocument(item, btn);
                     btn.dataset.title = item.title.toLowerCase();
                     
                     itemsDiv.appendChild(btn);
@@ -224,52 +453,62 @@
             });
         }
 
-        // Fungsi Menampilkan PDF ke dalam Iframe
-        function loadPDF(title, filename, btnElement) {
-            // Sembunyikan pesan kosong
+        // Buka Dokumen (PDF atau HTML)
+        function loadDocument(item, btnElement) {
             emptyState.classList.add('hidden');
+            documentHeader.classList.remove('hidden');
+            documentHeader.classList.add('flex');
             
-            // Ubah tautan Iframe. Pastikan folder "pdfs" ada di root direktori Github Pages Anda
-            // Contoh URL: pdfs/sop_adm_01.pdf
-            pdfViewer.src = `pdfs/${filename}#toolbar=0&navpanes=0`; 
+            activeTitle.innerText = item.title;
+
+            if (item.type === 'html') {
+                pdfContainer.classList.add('hidden');
+                mobilePdfLink.classList.add('hidden');
+                htmlContainer.classList.remove('hidden');
+                headerIcon.className = "fa-solid fa-chart-pie text-blue-600 mr-3 shrink-0 text-lg";
+            } else {
+                htmlContainer.classList.add('hidden');
+                pdfContainer.classList.remove('hidden');
+                mobilePdfLink.classList.remove('hidden');
+                headerIcon.className = "fa-regular fa-file-pdf text-red-500 mr-3 shrink-0 text-lg";
+                
+                const pdfUrl = `pdfs/${item.file}`;
+                pdfViewer.src = `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`; 
+                mobilePdfLink.href = pdfUrl; 
+            }
             
-            // Ubah teks judul atas
-            activeTitle.innerText = title;
-            
-            // Atur gaya tombol aktif
             if (currentlyActiveButton) {
-                currentlyActiveButton.classList.remove('bg-blue-50', 'text-blue-800', 'font-semibold');
-                currentlyActiveButton.classList.add('text-gray-600');
+                currentlyActiveButton.classList.remove('bg-blue-50', 'text-blue-800', 'font-semibold', 'border-blue-100');
+                currentlyActiveButton.classList.add('text-gray-600', 'border-transparent');
                 currentlyActiveButton.querySelector('.indicator').classList.remove('text-blue-600');
                 currentlyActiveButton.querySelector('.indicator').classList.add('text-transparent');
             }
             
-            btnElement.classList.remove('text-gray-600');
-            btnElement.classList.add('bg-blue-50', 'text-blue-800', 'font-semibold');
+            btnElement.classList.remove('text-gray-600', 'border-transparent');
+            btnElement.classList.add('bg-blue-50', 'text-blue-800', 'font-semibold', 'border-blue-100');
             btnElement.querySelector('.indicator').classList.remove('text-transparent');
             btnElement.querySelector('.indicator').classList.add('text-blue-600');
             
             currentlyActiveButton = btnElement;
 
-            // Tutup sidebar jika di layar HP
             if (window.innerWidth < 768) {
                 toggleSidebar();
             }
         }
 
-        // Fungsi Buka Tutup Sidebar di HP
         function toggleSidebar() {
             const isClosed = sidebar.classList.contains('-translate-x-full');
             if (isClosed) {
                 sidebar.classList.remove('-translate-x-full');
                 mobileOverlay.classList.remove('hidden');
+                setTimeout(() => mobileOverlay.classList.remove('opacity-0'), 10);
             } else {
                 sidebar.classList.add('-translate-x-full');
-                mobileOverlay.classList.add('hidden');
+                mobileOverlay.classList.add('opacity-0');
+                setTimeout(() => mobileOverlay.classList.add('hidden'), 300);
             }
         }
 
-        // Fungsi Fitur Pencarian Cepat
         function searchMenu() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const items = document.querySelectorAll('.menu-item');
@@ -283,9 +522,7 @@
             });
         }
 
-        // Jalankan render menu saat pertama kali website dimuat
         renderMenu();
-
     </script>
 </body>
 </html>
