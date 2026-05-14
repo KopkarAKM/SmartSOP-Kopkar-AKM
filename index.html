@@ -84,7 +84,7 @@
                 </a>
             </div>
 
-            <!-- Area Tampilan Konten (Dikunci dengan flex-1 dan overflow-hidden agar scroll berfungsi) -->
+            <!-- Area Tampilan Konten -->
             <div class="flex-1 relative w-full p-0 md:p-6 overflow-hidden flex justify-center">
                 
                 <!-- 1. Container Pembungkus PDF -->
@@ -98,14 +98,15 @@
                 </div>
 
                 <!-- 2. Container Pembungkus HTML (Untuk Ringkasan/Flowchart) -->
-                <!-- Penambahan w-full, h-full, dan overflow-y-auto memicu scroll pada elemen ini -->
                 <div id="html-container" class="relative w-full h-full max-w-5xl bg-white md:shadow-lg md:border border-gray-300 md:rounded-lg overflow-y-auto p-6 md:p-10 hidden" style="-webkit-overflow-scrolling: touch;">
                     
                     <div class="max-w-4xl mx-auto pb-10">
+                        <!-- RINGKASAN EKSEKUTIF -->
                         <div class="text-center mb-10">
-                            <h2 class="text-2xl md:text-3xl font-bold text-blue-900 uppercase tracking-tight">Peta Operasional & Flowchart</h2>
+                            <h2 class="text-2xl md:text-3xl font-bold text-blue-900 uppercase tracking-tight">Peta Operasional & Job Desk</h2>
                             <div class="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
                             <p class="mt-4 text-gray-600 text-sm md:text-base leading-relaxed">Visualisasi alur kerja terintegrasi Koperasi Karyawan Adaro Karya Mandiri. Sistem ini memandu setiap proses dari administrasi karyawan, siklus pinjaman, hingga pencatatan keuangan secara aman dan terukur.</p>
+                            <p class="mt-2 text-xs text-orange-600 font-semibold bg-orange-50 inline-block px-3 py-1 rounded-full"><i class="fa-solid fa-hand-pointer mr-1"></i> Klik label SOP pada alur di bawah ini untuk membaca dokumen terkait.</p>
                         </div>
 
                         <!-- FLOWCHART SOP USAHA -->
@@ -113,72 +114,69 @@
                             <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-orange-200 pb-2 flex items-center"><i class="fa-solid fa-briefcase text-orange-500 mr-3"></i> Alur SOP Usaha (Siklus Pinjaman & Simpanan)</h3>
                             
                             <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                                
                                 <!-- Simpanan -->
                                 <div class="bg-white border-l-4 border-teal-500 p-4 rounded shadow-sm mb-6 relative">
                                     <span class="absolute top-2 right-2 text-[10px] bg-teal-100 text-teal-800 px-2 py-1 rounded font-bold">ALUR INDEPENDEN</span>
                                     <h4 class="font-bold text-gray-800 text-sm mb-1">Fase Simpanan</h4>
                                     <p class="text-xs text-gray-600">Anggota menabung pasif/sukarela, dana dipotong tiap tgl 25. Modal ini menjadi faktor penentu kelayakan peminjaman.</p>
-                                    <div class="mt-2"><span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/04</span></div>
+                                    <div class="mt-2">
+                                        <button onclick="openSopByName('sop_ush_04.pdf')" class="text-[10px] bg-gray-100 hover:bg-teal-100 text-gray-700 hover:text-teal-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP/USH/04</button>
+                                    </div>
                                 </div>
 
                                 <!-- Siklus Pinjaman -->
                                 <h4 class="font-bold text-gray-800 text-sm mb-3">Fase Pengajuan, Analisis, dan Pencairan</h4>
                                 <div class="space-y-3 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
-                                    
-                                    <!-- Step 1 -->
                                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                         <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-file-signature text-sm"></i></div>
-                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                                             <p class="text-sm font-bold text-gray-800">1. Pengajuan (Titik Masuk)</p>
                                             <p class="text-xs text-gray-600 mt-1">Anggota memilih produk pinjaman dan melengkapi formulir.</p>
-                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/02</span></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Step 2 -->
-                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-orange-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-magnifying-glass-chart text-sm"></i></div>
-                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-orange-200">
-                                            <p class="text-sm font-bold text-gray-800">2. Proses Analisis Terintegrasi</p>
-                                            <p class="text-xs text-gray-600 mt-1">Kepala Unit menilai 5C (watak, modal, bayar), sisa gaji, dan nilai pasar agunan (wajib min. 120%).</p>
-                                            <div class="mt-2 flex flex-wrap gap-1">
-                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 01</span>
-                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 07</span>
-                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 08</span>
+                                            <div class="mt-2">
+                                                <button onclick="openSopByName('sop_ush_02.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP/USH/02</button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Step 3 -->
+                                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-orange-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-magnifying-glass-chart text-sm"></i></div>
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-orange-200 hover:shadow-md transition-shadow">
+                                            <p class="text-sm font-bold text-gray-800">2. Proses Analisis Terintegrasi</p>
+                                            <p class="text-xs text-gray-600 mt-1">Kepala Unit menilai 5C (watak, modal, bayar), sisa gaji, dan nilai pasar agunan (wajib min. 120%).</p>
+                                            <div class="mt-2 flex flex-wrap gap-1">
+                                                <button onclick="openSopByName('sop_ush_01.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 01</button>
+                                                <button onclick="openSopByName('sop_ush_07.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 07</button>
+                                                <button onclick="openSopByName('sop_ush_08.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 08</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                                         <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-hand-holding-dollar text-sm"></i></div>
-                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                                             <p class="text-sm font-bold text-gray-800">3. Persetujuan & Pencairan</p>
                                             <p class="text-xs text-gray-600 mt-1">Manajer/Pengurus menyetujui, dana dicairkan staf keuangan ke anggota.</p>
-                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>Kembali ke SOP/USH/02</span></div>
+                                            <div class="mt-2">
+                                                <button onclick="openSopByName('sop_ush_02.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP/USH/02</button>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <!-- Step 4 -->
                                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                                         <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-eye text-sm"></i></div>
-                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                                             <p class="text-sm font-bold text-gray-800">4. Pemantauan Berjalan</p>
                                             <p class="text-xs text-gray-600 mt-1">Tim rutin cek laporan potong gaji. Jika ada indikasi kurang lancar, tim langsung membina.</p>
-                                            <div class="mt-2"><span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP/USH/06</span></div>
+                                            <div class="mt-2">
+                                                <button onclick="openSopByName('sop_ush_06.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP/USH/06</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Step 5 -->
                                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                                         <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-red-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"><i class="fa-solid fa-triangle-exclamation text-sm"></i></div>
-                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-red-200">
+                                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-lg shadow-sm border border-red-200 hover:shadow-md transition-shadow">
                                             <p class="text-sm font-bold text-red-700">5. Eskalasi Masalah (Jika Gagal Bayar)</p>
                                             <p class="text-xs text-gray-600 mt-1">Atasan di perusahaan dipanggil, anggota wajib re-schedule. Jika macet mutlak (meninggal/cacat), sisa pinjaman dihapus dengan asuransi/cadangan.</p>
                                             <div class="mt-2 flex flex-wrap gap-1">
-                                                <span class="text-[10px] bg-red-100 text-red-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 05 (Bermasalah)</span>
-                                                <span class="text-[10px] bg-red-100 text-red-800 px-2 py-1 rounded"><i class="fa-solid fa-link mr-1"></i>SOP 03 (Hapus Macet)</span>
+                                                <button onclick="openSopByName('sop_ush_05.pdf')" class="text-[10px] bg-red-100 hover:bg-red-200 text-red-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 05 (Bermasalah)</button>
+                                                <button onclick="openSopByName('sop_ush_03.pdf')" class="text-[10px] bg-red-100 hover:bg-red-200 text-red-800 px-2 py-1 rounded transition-colors shadow-sm font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 03 (Hapus Macet)</button>
                                             </div>
                                         </div>
                                     </div>
@@ -189,50 +187,44 @@
                         <!-- FLOWCHART SOP KEUANGAN -->
                         <div class="mb-12">
                             <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-green-200 pb-2 flex items-center"><i class="fa-solid fa-money-bill-wave text-green-600 mr-3"></i> Alur SOP Keuangan</h3>
-                            
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <!-- Tahap 1 -->
-                                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm relative">
+                                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm relative hover:shadow-md transition-shadow">
                                     <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mb-3">1</div>
                                     <h4 class="font-bold text-sm text-gray-800">Input Transaksi</h4>
                                     <p class="text-[11px] text-gray-600 mt-1 mb-3">Pencatatan sumber data, pemisahan arus dana tunai, non-tunai, dan kapitalisasi biaya investasi.</p>
                                     <div class="flex flex-col gap-1">
-                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/08 (Tunai)</span>
-                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/01 (Non-Tunai)</span>
-                                        <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">SOP/KEU/06 (Kapitalisasi)</span>
+                                        <button onclick="openSopByName('sop_keu_08.pdf')" class="text-[10px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded border border-green-100 transition-colors shadow-sm font-semibold cursor-pointer text-left"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/08 (Tunai)</button>
+                                        <button onclick="openSopByName('sop_keu_01.pdf')" class="text-[10px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded border border-green-100 transition-colors shadow-sm font-semibold cursor-pointer text-left"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/01 (Non-Tunai)</button>
+                                        <button onclick="openSopByName('sop_keu_06.pdf')" class="text-[10px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded border border-green-100 transition-colors shadow-sm font-semibold cursor-pointer text-left"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/06 (Kapitalisasi)</button>
                                     </div>
                                 </div>
                                 <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fa-solid fa-arrow-right text-xl"></i></div>
                                 <div class="md:hidden flex justify-center text-gray-300 my-1"><i class="fa-solid fa-arrow-down"></i></div>
-
-                                <!-- Tahap 2 -->
-                                <div class="bg-white border border-green-300 rounded-lg p-4 shadow-md relative ring-1 ring-green-100">
+                                <div class="bg-white border border-green-300 rounded-lg p-4 shadow-md relative ring-1 ring-green-100 hover:shadow-lg transition-shadow">
                                     <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold mb-3">2</div>
                                     <h4 class="font-bold text-sm text-gray-800">Pencatatan Pusat</h4>
                                     <p class="text-[11px] text-gray-600 mt-1 mb-3">Jantung pemrosesan. Menyusun jurnal hingga terbentuknya Laporan Keuangan Bulanan.</p>
-                                    <span class="text-[10px] bg-green-100 text-green-800 px-2 py-1 rounded font-bold inline-block">SOP/KEU/04 (Sistem Akuntansi)</span>
+                                    <button onclick="openSopByName('sop_keu_04.pdf')" class="text-[10px] bg-green-100 hover:bg-green-200 text-green-800 px-2 py-1 rounded transition-colors shadow-sm font-bold w-full text-left cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/04 (Akuntansi)</button>
                                 </div>
                                 <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fa-solid fa-arrow-right text-xl"></i></div>
                                 <div class="md:hidden flex justify-center text-gray-300 my-1"><i class="fa-solid fa-arrow-down"></i></div>
-
-                                <!-- Tahap 3 & 4 (Combined for layout) -->
                                 <div class="flex flex-col gap-4 col-span-1 md:col-span-1">
-                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                                         <div class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xs mb-2">3</div>
                                         <h4 class="font-bold text-xs text-gray-800">Evaluasi Hasil</h4>
                                         <p class="text-[10px] text-gray-600 my-1">Surplus dibagikan, defisit diusut tuntas.</p>
                                         <div class="flex flex-wrap gap-1 mt-2">
-                                            <span class="text-[9px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-100">SOP 03 (SHU)</span>
-                                            <span class="text-[9px] bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-100">SOP 02 (Rugi)</span>
+                                            <button onclick="openSopByName('sop_keu_03.pdf')" class="text-[9px] bg-blue-50 hover:bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded border border-blue-100 transition-colors cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 03 (SHU)</button>
+                                            <button onclick="openSopByName('sop_keu_02.pdf')" class="text-[9px] bg-red-50 hover:bg-red-100 text-red-700 px-1.5 py-0.5 rounded border border-red-100 transition-colors cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 02 (Rugi)</button>
                                         </div>
                                     </div>
-                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                                         <div class="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center font-bold text-xs mb-2">4</div>
                                         <h4 class="font-bold text-xs text-gray-800">Pemantauan Metrik</h4>
                                         <p class="text-[10px] text-gray-600 my-1">Kontrol likuiditas dan rasio modal batas aman.</p>
                                         <div class="flex flex-wrap gap-1 mt-2">
-                                            <span class="text-[9px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100">SOP 07 (Likuiditas)</span>
-                                            <span class="text-[9px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100">SOP 05 (CAR)</span>
+                                            <button onclick="openSopByName('sop_keu_07.pdf')" class="text-[9px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100 transition-colors cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 07 (Kas)</button>
+                                            <button onclick="openSopByName('sop_keu_05.pdf')" class="text-[9px] bg-purple-50 hover:bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded border border-purple-100 transition-colors cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 05 (CAR)</button>
                                         </div>
                                     </div>
                                 </div>
@@ -240,74 +232,192 @@
                         </div>
 
                         <!-- FLOWCHART SOP KELEMBAGAAN -->
-                        <div class="mb-6">
+                        <div class="mb-12">
                             <h3 class="text-xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2 flex items-center"><i class="fa-solid fa-users text-blue-600 mr-3"></i> Alur SOP Kelembagaan (Siklus Hidup SDM)</h3>
-                            
                             <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
-                                <!-- Garis Latar -->
                                 <div class="absolute left-6 md:left-[50%] top-0 bottom-0 w-1 bg-blue-50 md:-translate-x-1/2 z-0"></div>
-                                
                                 <div class="space-y-6 relative z-10">
-                                    <!-- 1. Masuk -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 hover:bg-blue-50/50 p-2 rounded-lg transition-colors">
                                         <div class="md:w-1/2 md:text-right md:pr-8 pl-12 md:pl-0 order-2 md:order-1 w-full">
                                             <h4 class="font-bold text-sm text-gray-800">1. Fase Inisiasi & Masuk</h4>
-                                            <p class="text-xs text-gray-600 mt-1">Permintaan SDM, proses orientasi awal, hingga penentuan kelulusan masa probation menjadi karyawan tetap.</p>
+                                            <p class="text-xs text-gray-600 mt-1">Permintaan SDM, proses orientasi awal, hingga penentuan kelulusan masa probation.</p>
                                             <div class="flex flex-wrap md:justify-end gap-1 mt-2">
-                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 01 (Rekrutmen)</span>
-                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 03 (Orientasi)</span>
-                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 09 (Probation)</span>
+                                                <button onclick="openSopByName('sop_adm_01.pdf')" class="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 01</button>
+                                                <button onclick="openSopByName('sop_adm_03.pdf')" class="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 03</button>
+                                                <button onclick="openSopByName('sop_adm_09.pdf')" class="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 09</button>
                                             </div>
                                         </div>
                                         <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">1</div>
                                         <div class="md:w-1/2 order-3 hidden md:block"></div>
                                     </div>
-
-                                    <!-- 2. Operasional -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 hover:bg-blue-50/50 p-2 rounded-lg transition-colors">
                                         <div class="md:w-1/2 hidden md:block order-1"></div>
                                         <div class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">2</div>
                                         <div class="md:w-1/2 pl-12 md:pl-8 order-2 md:order-3 w-full">
                                             <h4 class="font-bold text-sm text-gray-800">2. Fase Administrasi Kerja Harian</h4>
                                             <p class="text-xs text-gray-600 mt-1">Pengaturan operasional lapangan seperti perizinan, lembur, dan pencairan anggaran dinas ke luar.</p>
                                             <div class="flex flex-wrap gap-1 mt-2">
-                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 04,05,06 (Izin/Cuti)</span>
-                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 07 (Lembur)</span>
-                                                <span class="text-[10px] bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded">SOP 11 & 12 (Dinas)</span>
+                                                <button onclick="openSopByName('sop_adm_04.pdf')" class="text-[10px] bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP Cuti/Izin (04-06)</button>
+                                                <button onclick="openSopByName('sop_adm_07.pdf')" class="text-[10px] bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 07 (Lembur)</button>
+                                                <button onclick="openSopByName('sop_adm_11.pdf')" class="text-[10px] bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 11 (Dinas)</button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 3. Pengembangan -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 hover:bg-blue-50/50 p-2 rounded-lg transition-colors">
                                         <div class="md:w-1/2 md:text-right md:pr-8 pl-12 md:pl-0 order-2 md:order-1 w-full">
                                             <h4 class="font-bold text-sm text-gray-800">3. Fase Evaluasi & Karier</h4>
-                                            <p class="text-xs text-gray-600 mt-1">Peningkatan skill dan penilaian rutin tahunan yang berujung pada promosi, demosi, atau kenaikan gaji (Kompensasi).</p>
+                                            <p class="text-xs text-gray-600 mt-1">Peningkatan skill dan penilaian rutin tahunan yang berujung pada promosi/demosi/kenaikan gaji.</p>
                                             <div class="flex flex-wrap md:justify-end gap-1 mt-2">
-                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 02 & 20 (Training)</span>
-                                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-1 rounded">SOP 10 (Evaluasi)</span>
-                                                <span class="text-[10px] bg-green-100 text-green-800 px-2 py-1 rounded">SOP 08 & 21 (Karier/Gaji)</span>
+                                                <button onclick="openSopByName('sop_adm_02.pdf')" class="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 02 (Training)</button>
+                                                <button onclick="openSopByName('sop_adm_10.pdf')" class="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 10 (Evaluasi)</button>
+                                                <button onclick="openSopByName('sop_adm_21.pdf')" class="text-[10px] bg-green-100 hover:bg-green-200 text-green-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 21 (Gaji)</button>
                                             </div>
                                         </div>
                                         <div class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2">3</div>
                                         <div class="md:w-1/2 order-3 hidden md:block"></div>
                                     </div>
-
-                                    <!-- 4 & 5. Kedisiplinan & Keluar -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 hover:bg-blue-50/50 p-2 rounded-lg transition-colors">
                                         <div class="md:w-1/2 hidden md:block order-1"></div>
                                         <div class="w-10 h-10 bg-slate-700 text-white rounded-full flex items-center justify-center font-bold shadow-md shrink-0 absolute md:relative left-1 md:left-auto order-1 md:order-2"><i class="fa-solid fa-door-open"></i></div>
                                         <div class="md:w-1/2 pl-12 md:pl-8 order-2 md:order-3 w-full">
                                             <h4 class="font-bold text-sm text-gray-800">4. Fase Kedisiplinan & 5. Offboarding</h4>
-                                            <p class="text-xs text-gray-600 mt-1">Penanganan SP, sanksi, hingga pemutusan kerja (resign, PHK, sakit, pensiun, meninggal) dengan pencairan pesangon.</p>
+                                            <p class="text-xs text-gray-600 mt-1">Penanganan SP, sanksi, hingga pemutusan kerja (resign, PHK, sakit, pensiun, meninggal).</p>
                                             <div class="flex flex-wrap gap-1 mt-2">
-                                                <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-1 rounded">SOP 19 (SP) -> SOP 15 (PHK)</span>
-                                                <span class="text-[10px] bg-slate-100 border border-slate-300 text-slate-700 px-2 py-1 rounded">SOP 14, 16, 17, 18, 13 (Keluar/Pensiun)</span>
+                                                <button onclick="openSopByName('sop_adm_19.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 19 (SP)</button>
+                                                <button onclick="openSopByName('sop_adm_15.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 text-orange-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP 15 (PHK)</button>
+                                                <button onclick="openSopByName('sop_adm_14.pdf')" class="text-[10px] bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 px-2 py-1 rounded transition-colors font-semibold cursor-pointer"><i class="fa-solid fa-link mr-1"></i>SOP Keluar/Pensiun (13-18)</button>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- KORELASI JOB DESK DAN SOP -->
+                        <div class="mb-12 pt-6 border-t-2 border-dashed border-gray-300">
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl font-bold text-blue-900 uppercase tracking-tight">Pemetaan Peran, Job Desk & Acuan SOP</h2>
+                                <p class="mt-2 text-gray-600 text-sm leading-relaxed">Panduan praktis agar pengurus, pengelola, dan pengawas mengetahui dengan pasti SOP apa yang memandu dan membatasi ruang gerak pekerjaan harian mereka di lapangan.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                
+                                <!-- Manajer -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-user-tie"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Manajer</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Fedrik Christian Adi Candra</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Memimpin operasional, menyusun strategi, mengelola laporan keuangan bulanan, memberdayakan anggota, dan memutus persetujuan akhir pinjaman/SDM.</p>
+                                    <div class="bg-indigo-50/50 rounded p-3 border border-indigo-50">
+                                        <span class="text-[10px] font-bold text-indigo-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('SOM_AKM.pdf')" class="text-[10px] bg-indigo-100 hover:bg-indigo-200 border border-indigo-200 text-indigo-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOM (Bab 1-3)</button>
+                                            <button onclick="openSopByName('sop_keu_04.pdf')" class="text-[10px] bg-indigo-100 hover:bg-indigo-200 border border-indigo-200 text-indigo-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/04</button>
+                                            <button onclick="openSopByName('sop_ush_02.pdf')" class="text-[10px] bg-indigo-100 hover:bg-indigo-200 border border-indigo-200 text-indigo-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/USH/02</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kepala Unit Simpan Pinjam -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Ka. Unit Simpan Pinjam</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Sri Mulyana</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Mengelola kas kecil/besar, database keanggotaan, pembayaran kewajiban, memastikan dana operasional, dan menangani administrasi pajak (e-Faktur/SPT).</p>
+                                    <div class="bg-emerald-50/50 rounded p-3 border border-emerald-50">
+                                        <span class="text-[10px] font-bold text-emerald-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('sop_keu_08.pdf')" class="text-[10px] bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 text-emerald-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/08</button>
+                                            <button onclick="openSopByName('sop_ush_01.pdf')" class="text-[10px] bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 text-emerald-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/USH/01 & 02</button>
+                                            <button onclick="openSopByName('sop_ush_04.pdf')" class="text-[10px] bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 text-emerald-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/USH/04</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kepala Unit Usaha & Travel -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-store"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Ka. Unit Usaha & Travel</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Mahmudah Hayati / Zahrah Annisa</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Memimpin operasional Adamart, kantin, dan layanan Travel. Menjaga ketersediaan barang/tiket, melayani anggota, inovasi produk, dan kordinasi dengan agen/distributor.</p>
+                                    <div class="bg-orange-50/50 rounded p-3 border border-orange-50">
+                                        <span class="text-[10px] font-bold text-orange-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('sop_keu_08.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 border border-orange-200 text-orange-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/08 (Dana/Setor)</button>
+                                            <button onclick="openSopByName('sop_adm_10.pdf')" class="text-[10px] bg-orange-100 hover:bg-orange-200 border border-orange-200 text-orange-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/ADM/10 (Evaluasi)</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Administrasi -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-cyan-100 text-cyan-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-file-signature"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Administrasi</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Rika Norhidayah</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Menyimpan & mengelola dokumen perusahaan (invoice, surat), mengatur jadwal rapat/notulen, menjaga database karyawan, dan mengelola alat tulis kantor (ATK).</p>
+                                    <div class="bg-cyan-50/50 rounded p-3 border border-cyan-50">
+                                        <span class="text-[10px] font-bold text-cyan-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('sop_adm_01.pdf')" class="text-[10px] bg-cyan-100 hover:bg-cyan-200 border border-cyan-200 text-cyan-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP 01 (Rekrutmen)</button>
+                                            <button onclick="openSopByName('sop_adm_04.pdf')" class="text-[10px] bg-cyan-100 hover:bg-cyan-200 border border-cyan-200 text-cyan-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP 04 (Cuti)</button>
+                                            <button onclick="openSopByName('sop_adm_11.pdf')" class="text-[10px] bg-cyan-100 hover:bg-cyan-200 border border-cyan-200 text-cyan-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP 11 (Perjalanan Dinas)</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kasir Adamart -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-yellow-100 text-yellow-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-cash-register"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Kasir Adamart</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Aida, Maulida, M. Sahap, Norhidayati</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Melakukan transaksi penjualan (cash/qris), menjaga kas harian, mencocokkan stok fisik di lapangan, melaporkan barang expired, dan membersihkan area kerja.</p>
+                                    <div class="bg-yellow-50/50 rounded p-3 border border-yellow-50">
+                                        <span class="text-[10px] font-bold text-yellow-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('sop_keu_08.pdf')" class="text-[10px] bg-yellow-100 hover:bg-yellow-200 border border-yellow-200 text-yellow-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/08 (Batas Kas Harian)</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Operasional Lapangan -->
+                                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                        <div class="w-10 h-10 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-truck-fast"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">Operasional Lapangan</h4>
+                                            <p class="text-[11px] text-gray-500 font-semibold">Ernest Kalula B.</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-700 mb-3"><span class="font-bold text-gray-900">Fokus Tugas:</span> Cek fisik sarana (oli, ban mobil), eksekusi transaksi ke bank, antar jemput dokumen tanda tangan pengurus, belanja kebutuhan Adamart, dan distribusi logistik.</p>
+                                    <div class="bg-rose-50/50 rounded p-3 border border-rose-50">
+                                        <span class="text-[10px] font-bold text-rose-900 uppercase block mb-1">Acuan SOP Utama (Klik untuk buka):</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <button onclick="openSopByName('sop_keu_04.pdf')" class="text-[10px] bg-rose-100 hover:bg-rose-200 border border-rose-200 text-rose-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/KEU/04 (Support Transaksi)</button>
+                                            <button onclick="openSopByName('sop_adm_11.pdf')" class="text-[10px] bg-rose-100 hover:bg-rose-200 border border-rose-200 text-rose-800 px-2 py-1 rounded transition-colors font-semibold cursor-pointer shadow-sm"><i class="fa-solid fa-link mr-1"></i>SOP/ADM/11 (Mobilitas)</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -339,7 +449,7 @@
                 category: "Ringkasan Eksekutif",
                 icon: "fa-solid fa-chart-pie",
                 items: [
-                    { title: "Peta Operasional & Flowchart", type: "html" }
+                    { title: "Peta Operasional & Job Desk", type: "html" }
                 ]
             },
             {
@@ -477,22 +587,65 @@
                 mobilePdfLink.href = pdfUrl; 
             }
             
-            if (currentlyActiveButton) {
+            if (currentlyActiveButton && currentlyActiveButton.classList) {
                 currentlyActiveButton.classList.remove('bg-blue-50', 'text-blue-800', 'font-semibold', 'border-blue-100');
                 currentlyActiveButton.classList.add('text-gray-600', 'border-transparent');
-                currentlyActiveButton.querySelector('.indicator').classList.remove('text-blue-600');
-                currentlyActiveButton.querySelector('.indicator').classList.add('text-transparent');
+                
+                const indicator = currentlyActiveButton.querySelector('.indicator');
+                if(indicator) {
+                    indicator.classList.remove('text-blue-600');
+                    indicator.classList.add('text-transparent');
+                }
             }
             
-            btnElement.classList.remove('text-gray-600', 'border-transparent');
-            btnElement.classList.add('bg-blue-50', 'text-blue-800', 'font-semibold', 'border-blue-100');
-            btnElement.querySelector('.indicator').classList.remove('text-transparent');
-            btnElement.querySelector('.indicator').classList.add('text-blue-600');
-            
-            currentlyActiveButton = btnElement;
+            if (btnElement && btnElement.classList) {
+                btnElement.classList.remove('text-gray-600', 'border-transparent');
+                btnElement.classList.add('bg-blue-50', 'text-blue-800', 'font-semibold', 'border-blue-100');
+                
+                const indicator = btnElement.querySelector('.indicator');
+                if(indicator) {
+                    indicator.classList.remove('text-transparent');
+                    indicator.classList.add('text-blue-600');
+                }
+                currentlyActiveButton = btnElement;
+            }
 
             if (window.innerWidth < 768) {
                 toggleSidebar();
+            }
+        }
+
+        // Fungsi Pintar: Buka SOP berdasarkan nama file (Untuk link di dalam Flowchart/Job Desk)
+        function openSopByName(fileName) {
+            let targetItem = null;
+            // Cari data item berdasarkan nama file PDF
+            for (let category of documentData) {
+                for (let item of category.items) {
+                    if (item.file === fileName) {
+                        targetItem = item;
+                        break;
+                    }
+                }
+                if (targetItem) break;
+            }
+
+            if (targetItem) {
+                // Cari tombol menu di sidebar yang sesuai
+                const btns = document.querySelectorAll('.menu-item');
+                let targetBtn = null;
+                btns.forEach(btn => {
+                    if (btn.dataset.title === targetItem.title.toLowerCase()) {
+                        targetBtn = btn;
+                    }
+                });
+                
+                // Eksekusi buka dokumen
+                loadDocument(targetItem, targetBtn);
+                
+                // Opsional: Gulir layar kembali ke atas jika di HP
+                if (window.innerWidth < 768) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
         }
 
