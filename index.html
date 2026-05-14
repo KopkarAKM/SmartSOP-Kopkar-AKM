@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal SOM & SOP Adaro Karya Mandiri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Mencegah klik pada watermark agar PDF tetap bisa di-scroll */
+        .watermark-overlay {
+            pointer-events: none;
+        }
+        /* Transisi halus untuk sidebar HP */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 flex h-screen overflow-hidden">
+
+    <!-- Overlay Latar Belakang (Mobile) -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Navigasi -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-gray-200 flex flex-col shadow-sm transform -translate-x-full md:translate-x-0">
+        
+        <!-- Header Sidebar -->
+        <div class="p-6 border-b border-gray-100 flex items-center gap-4">
+            <div class="w-10 h-10 bg-blue-900 rounded-lg flex items-center justify-center shrink-0 shadow-sm">
+                <span class="text-xl font-bold text-white">A</span>
+            </div>
+            <div class="flex-1 overflow-hidden">
+                <h1 class="text-base font-bold text-blue-900 truncate">Adaro Karya Mandiri</h1>
+                <p class="text-xs text-gray-500 font-medium">Portal SOM & SOP</p>
+            </div>
+            <button class="md:hidden text-gray-400 hover:text-gray-600" onclick="toggleSidebar()">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Kolom Pencarian -->
+        <div class="px-6 py-4">
+            <div class="relative flex items-center">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" placeholder="Cari dokumen..." onkeyup="searchMenu()" class="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all">
+            </div>
+        </div>
+
+        <!-- Daftar Menu Dinamis -->
+        <div id="menu-container" class="flex-1 overflow-y-auto py-2 px-3">
+            <!-- Menu akan di-render oleh JavaScript -->
+        </div>
+
+    </aside>
+
+    <!-- Area Konten Utama -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden">
+        
+        <!-- Header Top (Mobile) -->
+        <header class="md:hidden bg-white border-b border-gray-200 px-4 h-16 flex items-center justify-between shrink-0 z-30">
+            <button class="p-2 text-gray-500" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <h1 class="text-sm font-bold text-blue-900 truncate">Portal Koperasi</h1>
+            <button class="p-2 text-gray-500">
+                <i class="fa-solid fa-circle-user text-xl"></i>
+            </button>
+        </header>
+
+        <!-- Area Penampil Dokumen -->
+        <div class="flex-1 flex flex-col relative bg-gray-200">
+            
+            <!-- Toolbar Judul Dokumen Aktif -->
+            <div class="bg-white border-b border-gray-200 px-4 md:px-6 py-3 flex items-center justify-between shrink-0 shadow-sm z-20">
+                <div class="flex items-center text-sm font-medium text-gray-800 w-full">
+                    <i class="fa-regular fa-file-pdf text-red-500 mr-3"></i>
+                    <span id="active-title" class="truncate">Silakan Pilih Dokumen di Menu Samping</span>
+                </div>
+            </div>
+
+            <!-- Area Iframe PDF & Watermark -->
+            <div class="flex-1 relative w-full h-full p-2 md:p-6 flex justify-center">
+                
+                <!-- Container Pembungkus PDF agar rapi -->
+                <div class="relative w-full max-w-5xl h-full bg-white shadow-lg border border-gray-300 rounded-md overflow-hidden">
+                    
+                    <!-- Watermark Lapisan Depan -->
+                    <div class="watermark-overlay absolute inset-0 flex items-center justify-center z-10 overflow-hidden select-none">
+                        <span class="text-gray-900 opacity-[0.04] text-4xl md:text-7xl font-bold uppercase tracking-widest -rotate-45 whitespace-nowrap">
+                            Kopkar AKM Internal Only
+                        </span>
+                    </div>
+
+                    <!-- Elemen Iframe Pemanggil PDF Asli -->
+                    <iframe id="pdf-viewer" class="w-full h-full relative z-0" src="" frameborder="0"></iframe>
+                    
+                    <!-- Pesan Kosong Awal -->
+                    <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-0">
+                        <i class="fa-solid fa-book-open text-6xl text-gray-300 mb-4"></i>
+                        <h2 class="text-xl font-bold text-gray-400">Portal Dokumen Siap Digunakan</h2>
+                        <p class="text-gray-500 mt-2 text-sm text-center max-w-md">Klik salah satu judul dokumen SOP pada navigasi di sebelah kiri untuk membaca file PDF.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Logika Aplikasi -->
+    <script>
+        // Data Struktur Folder dan File PDF
+        // Pastikan nama file (properti 'file') persis sama dengan yang ada di folder 'pdfs' Anda.
+        const documentData = [
+            {
+                category: "SOM Koperasi",
+                icon: "fa-solid fa-folder-open",
+                items: [
+                    { title: "Standar Operasional Manajemen", file: "SOM_AKM.pdf" }
+                ]
+            },
+            {
+                category: "SOP Kelembagaan",
+                icon: "fa-solid fa-building",
+                items: [
+                    { title: "01. Permintaan Karyawan Baru", file: "sop_adm_01.pdf" },
+                    { title: "02. Pelatihan Karyawan", file: "sop_adm_02.pdf" },
+                    { title: "03. Program Orientasi Karyawan", file: "sop_adm_03.pdf" },
+                    { title: "04. Cuti Karyawan", file: "sop_adm_04.pdf" },
+                    { title: "05. Izin Potong Cuti", file: "sop_adm_05.pdf" },
+                    { title: "06. Izin Sakit", file: "sop_adm_06.pdf" },
+                    { title: "07. Lembur Karyawan", file: "sop_adm_07.pdf" },
+                    { title: "08. Mutasi Promosi Demosi", file: "sop_adm_08.pdf" },
+                    { title: "09. Penilaian Masa Percobaan", file: "sop_adm_09.pdf" },
+                    { title: "10. Penilaian Tahunan", file: "sop_adm_10.pdf" },
+                    { title: "11. Perjalanan Dinas", file: "sop_adm_11.pdf" },
+                    { title: "12. Pertanggungjawaban Dinas", file: "sop_adm_12.pdf" },
+                    { title: "13. Karyawan Meninggal Dunia", file: "sop_adm_13.pdf" },
+                    { title: "14. Pengunduran Diri", file: "sop_adm_14.pdf" },
+                    { title: "15. PHK Karyawan", file: "sop_adm_15.pdf" },
+                    { title: "16. PHK Massal", file: "sop_adm_16.pdf" },
+                    { title: "17. Resign Karena Sakit", file: "sop_adm_17.pdf" },
+                    { title: "18. Karyawan Pensiun", file: "sop_adm_18.pdf" },
+                    { title: "19. Surat Peringatan", file: "sop_adm_19.pdf" },
+                    { title: "20. Pengajuan Biaya Training", file: "sop_adm_20.pdf" },
+                    { title: "21. Usulan Kenaikan Gaji", file: "sop_adm_21.pdf" }
+                ]
+            },
+            {
+                category: "SOP Keuangan",
+                icon: "fa-solid fa-money-bill-wave",
+                items: [
+                    { title: "01. Transaksi Non Tunai", file: "sop_keu_01.pdf" },
+                    { title: "02. Kriteria & Beban Kerugian", file: "sop_keu_02.pdf" },
+                    { title: "03. Akuntansi SHU", file: "sop_keu_03.pdf" },
+                    { title: "04. Sistem Akuntansi", file: "sop_keu_04.pdf" },
+                    { title: "05. Rasio Kecukupan Modal", file: "sop_keu_05.pdf" },
+                    { title: "06. Kapitalisasi Pengeluaran", file: "sop_keu_06.pdf" },
+                    { title: "07. Likuiditas Koperasi", file: "sop_keu_07.pdf" },
+                    { title: "08. Pengelolaan Dana Tunai", file: "sop_keu_08.pdf" }
+                ]
+            },
+            {
+                category: "SOP Usaha",
+                icon: "fa-solid fa-briefcase",
+                items: [
+                    { title: "01. Prinsip Kehati-Hatian", file: "sop_ush_01.pdf" },
+                    { title: "02. Produk Pinjaman", file: "sop_ush_02.pdf" },
+                    { title: "03. Penghapusan Kredit Macet", file: "sop_ush_03.pdf" },
+                    { title: "04. Simpanan Konvensional", file: "sop_ush_04.pdf" },
+                    { title: "05. Penanganan Kredit Bermasalah", file: "sop_ush_05.pdf" },
+                    { title: "06. Pemantauan & Pembinaan", file: "sop_ush_06.pdf" },
+                    { title: "07. Kolektabilitas Pinjaman", file: "sop_ush_07.pdf" },
+                    { title: "08. Agunan Pinjaman", file: "sop_ush_08.pdf" }
+                ]
+            }
+        ];
+
+        // Elemen HTML yang akan dimanipulasi
+        const menuContainer = document.getElementById('menu-container');
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const activeTitle = document.getElementById('active-title');
+        const emptyState = document.getElementById('empty-state');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        
+        let currentlyActiveButton = null;
+
+        // Fungsi Membangun Menu Navigasi
+        function renderMenu() {
+            menuContainer.innerHTML = '';
+            
+            documentData.forEach(category => {
+                // Wrapper Kategori
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'mb-4 menu-group';
+                
+                // Judul Kategori
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'px-3 py-2 flex items-center text-xs font-bold text-gray-500 uppercase tracking-wider';
+                titleDiv.innerHTML = `<i class="${category.icon} w-5 text-gray-400"></i> ${category.category}`;
+                groupDiv.appendChild(titleDiv);
+                
+                // Daftar Item (Dokumen)
+                const itemsDiv = document.createElement('div');
+                itemsDiv.className = 'flex flex-col gap-1 mt-1';
+                
+                category.items.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.className = 'menu-item w-full text-left px-4 py-2 text-sm rounded-md transition-all flex items-center justify-between text-gray-600 hover:bg-gray-50 hover:text-gray-900';
+                    btn.innerHTML = `<span class="truncate pr-2">${item.title}</span> <i class="fa-solid fa-chevron-right text-transparent text-xs transition-colors indicator"></i>`;
+                    
+                    // Event Klik Buka PDF
+                    btn.onclick = () => loadPDF(item.title, item.file, btn);
+                    
+                    // Simpan data text untuk fitur pencarian
+                    btn.dataset.title = item.title.toLowerCase();
+                    
+                    itemsDiv.appendChild(btn);
+                });
+                
+                groupDiv.appendChild(itemsDiv);
+                menuContainer.appendChild(groupDiv);
+            });
+        }
+
+        // Fungsi Menampilkan PDF ke dalam Iframe
+        function loadPDF(title, filename, btnElement) {
+            // Sembunyikan pesan kosong
+            emptyState.classList.add('hidden');
+            
+            // Ubah tautan Iframe. Pastikan folder "pdfs" ada di root direktori Github Pages Anda
+            // Contoh URL: pdfs/sop_adm_01.pdf
+            pdfViewer.src = `pdfs/${filename}#toolbar=0&navpanes=0`; 
+            
+            // Ubah teks judul atas
+            activeTitle.innerText = title;
+            
+            // Atur gaya tombol aktif
+            if (currentlyActiveButton) {
+                currentlyActiveButton.classList.remove('bg-blue-50', 'text-blue-800', 'font-semibold');
+                currentlyActiveButton.classList.add('text-gray-600');
+                currentlyActiveButton.querySelector('.indicator').classList.remove('text-blue-600');
+                currentlyActiveButton.querySelector('.indicator').classList.add('text-transparent');
+            }
+            
+            btnElement.classList.remove('text-gray-600');
+            btnElement.classList.add('bg-blue-50', 'text-blue-800', 'font-semibold');
+            btnElement.querySelector('.indicator').classList.remove('text-transparent');
+            btnElement.querySelector('.indicator').classList.add('text-blue-600');
+            
+            currentlyActiveButton = btnElement;
+
+            // Tutup sidebar jika di layar HP
+            if (window.innerWidth < 768) {
+                toggleSidebar();
+            }
+        }
+
+        // Fungsi Buka Tutup Sidebar di HP
+        function toggleSidebar() {
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                mobileOverlay.classList.add('hidden');
+            }
+        }
+
+        // Fungsi Fitur Pencarian Cepat
+        function searchMenu() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.menu-item');
+            
+            items.forEach(item => {
+                if (item.dataset.title.includes(input)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Jalankan render menu saat pertama kali website dimuat
+        renderMenu();
+
+    </script>
+</body>
+</html>
